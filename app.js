@@ -11,6 +11,14 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended:true}))
 
+app.use(function(req, res, next) {  //  обойти политику CORS, из за которой браузер блокирует запрос
+    res.header("Access-Control-Allow-Origin", "*"); // с одного домена (фронт) на другой (бэк)
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS"); // разрешаем серверу использование методов
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
+
 app.use('/users', userRouter)
 
 app.use((err, req, res, next) => {
