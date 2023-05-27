@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 require('dotenv').config()
 
-const {userRouter} = require("./router");
+const {userRouter, containerRouter, stageRouter} = require("./router");
 const configs = require('./configs/configs');
 mongoose.set('strictQuery', false);
 
@@ -20,6 +20,8 @@ app.use(function(req, res, next) {  //  обойти политику CORS, из
 
 
 app.use('/users', userRouter)
+app.use('/containers', containerRouter)
+app.use('/stages', stageRouter)
 
 app.use((err, req, res, next) => {
 
